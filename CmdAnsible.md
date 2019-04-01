@@ -1,40 +1,44 @@
-Ansible :
+## Ansible :
 
-Infrastructure en tant que code (2 outils Ansible et Puppet) 
-playbook (yaml) pour déployer 
-host (inventaire liste) 
+`ssh-keygen`
+Création de clé publiques/privées (dans fichier par défaut sinon ajouter argument -i avec chemin de la clé)
 
-Protocole ssh : avec clé publique/clé privée   = connexion assymétrique 
-
-ssh-keygen 
-	génére des clés publiques/privées (dans fichier par défaut sinon après doit ajouter 
-	argument -i avec chemin de la clé)
-
-(créer sur VPS un nouvel user deploy avec droits superUser) :
-ssh USER@IP_VPS
-	connexion au VPS
-sudo adduser NOM_USER
-	création user 
-sudo passwd NOM_USER
-	attribution mot de passe user 
-sudo visudo 
-	ajout après ligne ROOT ALL=(ALL) ALL de NOM_USER ALL=(ALL) ALL (tous les 	droits su) 
-
-Sur machine locale 
-ssh-copy-id NOM_USER@IP_VPS
-	envoie clé publique à ce nouvel user 
-ssh NOM_USER@IP_VPS
-	Connection au VPS avec le nouvel user sans précision de mot de passe 
+#### New user avec droits superUser :
 
 
-Création fichier inventaire rec-apache.inv
-mkdir AnsibleTest
-	création répertoire de test pour ansible 
-cd AnsibleTest
-	définition comme répertoire courant 
-echo "139.99.202.68 ansible_user=root" >rec-apache.inv
-echo "139.99.202.68 ansible_user=deploy" >rec-apache.inv
-	création du fichier avec la ligne d’inventaire (soit avec nouvel user soit avec root)
+connection au VirtualServer (VPS) via ssh
+`ssh USER@IP_VPS`
+
+Création d'un user
+`sudo adduser NOM_USER`
+
+Attribution d'un mot de passe
+`sudo passwd NOM_USER`
+
+Modification du fichier sudoers pour donner droits
+`sudo visudo`
+	ajout :
+ROOT ALL=(ALL) ALL
+NOM_USER ALL=(ALL) ALL
+  (tous les droits su)
+
+Sur machine locale
+Envoie clé publique
+`ssh-copy-id NOM_USER@IP_VPS`
+Connection sans password grâce clé 
+`ssh NOM_USER@IP_VPS`
+
+#### Création fichier inventaire :
+
+Création répertoire travail 
+`mkdir AnsibleTest`
+
+Déplacement dans le répertoire
+`cd AnsibleTest`
+
+Création fichier inventaire (root ou user)
+`echo "139.99.202.68 ansible_user=root" >inventaire.inv`
+`echo "139.99.202.68 ansible_user=deploy" >inventaire.inv`
 
 ansible -i rec-apache.inv -m ping all
 	vérifier que ça ping (bonne communication)
