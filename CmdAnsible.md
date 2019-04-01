@@ -40,37 +40,34 @@ Création fichier inventaire (root ou user)
 `echo "139.99.202.68 ansible_user=root" >inventaire.inv`
 `echo "139.99.202.68 ansible_user=deploy" >inventaire.inv`
 
-ansible -i rec-apache.inv -m ping all
-	vérifier que ça ping (bonne communication)
 
-ansible -i NOM_INV.inv -m setup -a ’filter=ansible_user_id’ all
-ansible -i rec-apache.inv -m setup all
-	setup permet d’utiliser une variable pour avoir une information (ici que afficher)
+Vérifier communication (ping)
+`ansible -i rec-apache.inv -m ping all`
 
+Afficher information (setup utilise variable pour avoir une info)
+`ansible -i NOM_INV.inv -m setup -a ’filter=ansible_user_id’ all`
+`ansible -i rec-apache.inv -m setup all`
 
+Modifier droit user en SU e, ligne commande
+`ansible -i rec-apache.inv -m lineinfile -a "path=/etc/sudoers line=’deploy ALL=(ALL:ALL) NOPASSWD: ALL’" --become-method=su --become --ask-become-pass all`
 
-ansible -i rec-apache.inv -m lineinfile -a "path=/etc/sudoers line=’deploy ALL=(ALL:ALL) NOPASSWD: ALL’" --become-method=su --become --ask-become-pass all
-	methode pour que user passe avec droits superuser sans password(changement du dossier 	/etc/sudoers)
+savoir quel est l’utilisateur vérifie l’opération `ansible -i rec-apache.inv -m setup -a ‘filter=ansible_user_id’ --become all`
 
-ansible -i rec-apache.inv -m setup -a ‘filter=ansible_user_id’ --become all
-	permet de savoir quel est l’utilisateur avec lequel vous travaillez, vérifie que l’opération 	s’est bien passée 
+Lancer opération avec user apache 
+`ansible -i rec-apache.inv -m setup -a ’filter=ansible_user_id’ --become-user deploy --become all`
 
-ansible -i rec-apache.inv -m setup -a ’filter=ansible_user_id’ --become-user deploy --become all
-	lancer les opérations avec l’utilisateur apache à la place de root
+Installer apache sur vps
+`ansible -i rec-apache.inv -b -m yum -a name=httpd all`
 
-ansible -i rec-apache.inv -b -m yum -a name=httpd all
-	permet d’installer apache sur vps 
+Active et lance le service apache
+`ansible -i rec-apache.inv -b -m service -a "name=httpd state=started enabled=yes" all`
 
-ansible -i rec-apache.inv -b -m service -a "name=httpd state=started enabled=yes" all
-	active et lance le service apache
-ansible -i rec-apache-1.inv -b -m copy -a "src=test.html owner=apache group=apache dest=/var/www/html" all
-	copie (avec securité)
+Copie (avec securité)
+`ansible -i rec-apache-1.inv -b -m copy -a "src=test.html owner=apache group=apache dest=/var/www/html" all`
 
-
-
-Playbook = fichier YAML, donne une liste d’instructions passées à Ansible dans l’ordre de leur déclaration (tout décrit dans un fichier, y compris l’enchaînement des opérations)
-
-fichier install-apache.yml contenant : vim install-apache.yml
+Création fichier.yml (Playbook):
+`vim install-apache.yml`
+Contentant (attention à l'indentation dans yml)
 - name: "Apache Installation"
   hosts: all
   tasks:
@@ -89,22 +86,24 @@ fichier install-apache.yml contenant : vim install-apache.yml
       dest: "/var/www/html"
       owner: "apache"
       group: "apache"
-!!!!!!! attention à l’indentation dans un yaml !!!!!!!!
 
 
-ansible-playbook -b -i rec-apache.inv install-apache.yml
-	lance le playbook 
-	-b que si à l’intérieur il y a de l’installation (nécessite connection root) 
 
-ansible -m debug -a var=groups localhost
-	consulter liste inventaire 
+lancement playbook 
+`ansible-playbook -b -i INVENTAIRE.inv PLAYBOOK.yml`
+-b que si à l’intérieur il y a de l’installation (nécessite connection root)
 
-ansible -e variable=valeur -e @fichier-variables.yml -m debug -a var=variable localhost
-	créer des fichiers de variables (au format YAML) ou encore de passer
-	à Ansible des variables à l’aide de l’option -e
+Consulter liste inventaire 
+`ansible -m debug -a var=groups localhost`
 
-ansible -i inventaire-apache.inv -m template -a "src=NOM.html.j2 dest=$PWD/{{inventory_hostname}}.html" -c local all
-	lancement playbook 
+
+
+
+`ansible -e variable=valeur -e @fichier-variables.yml -m debug -a var=variable localhost`
+créer des fichiers de variables (au format YAML) ou encore de passer à Ansible des variables à l’aide de l’option -e
+
+`ansible -i inventaire-apache.inv -m template -a "src=NOM.html.j2 dest=$PWD/{{inventory_hostname}}.html" -c local all`
+Lancement playbook
 
 création fichier html : (nommé booba.html.j2) en Jinja 
 <html>
@@ -117,7 +116,6 @@ création fichier html : (nommé booba.html.j2) en Jinja
 </html>
 
 playbook sous le nom d’inventory.yml :
-!!!! yml : indentation
 - name: "Generate html file for each host"
   hosts: all
   connection: local
@@ -130,9 +128,8 @@ playbook sous le nom d’inventory.yml :
  cp rec-apache.inv ./Jinja/inventaire-apache.inv
 	copier dernier inventaire en changeant son nom 
 
-ansible-playbook -i inventaire-apache.inv inventory.yml
-	lancement du playbook
-
+`ansible-playbook -i inventaire-apache.inv inventory.yml`
+Lancement du playbook
 
 
 Fichier html avec boucle :
@@ -153,10 +150,10 @@ Fichier html avec boucle :
 </html>
 
 
-ansible-playbook -i inventaire-apache.inv inventory.yml
-	relancement du playbook (!!!pensez à vérifier les noms des sources)
+`ansible-playbook -i inventaire-apache.inv inventory.yml`
+Lancement du playbook (!!!pensez à vérifier les noms des sources)
 
-grep li *.html
+`grep li *.html`
 	Affichage des résultats (interfaces réseau)
 	Problème : toujours la même adresse ip (celle d’ansible)
 récupérer des informations sur les machines distantes avant de s’en servir en local ⇒  plugin de connexion !! (ssh ou local) ainsi que la délégation (option delegate_to).
@@ -173,13 +170,11 @@ Pour ça : modif du playbook inventory.yml
      connection : local
 
 puis relancement des commandes 
-ansible-playbook -i inventaire-apache.inv inventory.yml
-	relancement du playbook (!!!pensez à vérifier les noms des sources)
+`ansible-playbook -i inventaire-apache.inv inventory.yml`
+Lancement du playbook (!!!pensez à vérifier les noms des sources)
 
-grep li *.html
-	Affichage des résultats (interfaces réseau)
-	Et là OKKKKKKKK 
-
+`grep li *.html`
+Affichage des résultats (interfaces réseau)
 
 
 Nouveau playbook pour déléguer :
@@ -204,5 +199,5 @@ Nouveau playbook pour déléguer :
       dest: "{{inventory_dir}}/{{inventory_hostname}}.html"
      delegate_to: "{{host_inventory}}"
 
-ansible-playbook -b -i inventaire_group.inv inventory.yml
-	relancer playbook (penser que les users doivent être enregistrés sur chaque machines avec 	les bons droits (sudoers avec NOPASSWD : ALL) et -b pour forcer)
+`ansible-playbook -b -i inventaire_group.inv inventory.yml`0
+relancer playbook (penser que les users doivent être enregistrés sur chaque machines avec 	les bons droits (sudoers avec NOPASSWD : ALL) et -b pour forcer)
