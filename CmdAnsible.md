@@ -201,3 +201,41 @@ Nouveau playbook pour déléguer :
 
 `ansible-playbook -b -i inventaire_group.inv inventory.yml`0
 relancer playbook (penser que les users doivent être enregistrés sur chaque machines avec 	les bons droits (sudoers avec NOPASSWD : ALL) et -b pour forcer)
+
+
+
+
+Lister les tags pour un playbook
+`ansible-playbook install-apache.yml --list-tags`
+Les tags se définissent dans le playbook : 
+
+- name: "Apache Installation"
+  hosts: all
+  tasks:
+   - name: "Install apache package"
+     yum:
+      name: "httpd"
+      state: "present"
+     tags: "testtags"
+   - name: "Start apache service"
+     service:
+      name: "httpd"
+      state: "started"
+      enabled: yes
+   - name: "Copy test.html"
+     copy:
+      src: "test.html"
+      dest: "/var/www/html"
+      owner: "apache"
+      group: "apache"
+
+
+
+Selection ou exclusion des tags : 
+`--tags LIST_TAGS` ou `--skip LIST_TAGS`
+
+lancement playbook avec qu'un tag : 
+`ansible-playbook -i iventaire.inv install.yml --tags restart`
+Permet d'executer qu'une tâche précise ici tagger restart (ou alors de ne pas l'exécuter avec --skip)
+
+

@@ -1,0 +1,13 @@
+- name: "Apache "Apache installation"
+  hosts: inventaire 
+  tasks:
+   - name: "Apache configuration"
+     template: 
+      src: "inventory.conf.j2"
+      dest: "/etc/httpd/conf.d/inventory.conf"
+      owner: "apache"
+      group: "apache" 
+    # register execution result for template creation 
+    register: apache_conf
+  # instruction permettant de scruter le contenu de la variable 
+  - debug: var=apache_conf
