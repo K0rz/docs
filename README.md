@@ -1,8 +1,9 @@
 # Documentation 
 
-# Trello : https://trello.com/devops20191
+#### Trello : 
+https://trello.com/devops20191
 
 
-# Commandes base : 
-#   Toujours commencer par mise à jour (pull)
-#   Après modification : commit + push
+#### Base : 
+Mise à jour : `pull`
+Enregistrement modification : `commit` & `push`
