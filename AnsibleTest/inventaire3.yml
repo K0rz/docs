@@ -1,0 +1,17 @@
+- name: "Apache installation" 
+  hosts: Inventaire 
+  tasks: 
+   - name: "Apache package installation" 
+     yum: 
+      name: "httpd" 
+      state: "present" 
+   - name: "Apache configuration" 
+     template: 
+      src: "inventory.conf.j2" 
+      dest: "/etc/httpd/conf.d/inventory.conf" 
+      owner: "apache" 
+      group: "apache" 
+  # registerexecutionresultfor template creation 
+     register: apache_conf 
+  # Instruction permettant de scruter le contenu de la variable 
+   - debug: var=apache_conf

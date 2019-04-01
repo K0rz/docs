@@ -1,0 +1,8 @@
+[Fantastics]
+51.75.201.107 ansible_user=deploy
+139.99.202.68 ansible_user=abdel
+51.38.188.213 ansible_user=abdel
+51.75.23.252 ansible_user=abdel
+
+[Inventaire]
+51.75.201.107 ansible_user=deploy
