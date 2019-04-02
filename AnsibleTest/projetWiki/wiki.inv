@@ -1,5 +1,0 @@
-[apache]
-XX.XX.XX.XX ansible_user=
-
-[mysql]
-XX.XX.XX.XX ansible_user=
