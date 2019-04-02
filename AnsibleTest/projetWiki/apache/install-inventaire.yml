@@ -1,4 +1,4 @@
 - name: "Apache installation"
-   hosts: inventaire
-   roles:
+  hosts: inventaire
+  roles:
    - role: "apache"
