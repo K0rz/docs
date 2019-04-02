@@ -1,0 +1,13 @@
+[Fantastics]
+51.38.188.213 ansible_user=margo
+51.75.201.107 ansible_user=margo
+51.75.23.252 ansible_user=margo
+139.99.202.68 ansible_user=Gomgom
+
+
+[apache]
+139.99.202.68 ansible_user=Gomgom
+
+
+[GitLab]
+139.99.202.52 ansible_user=Gomgom

@@ -1,0 +1,13 @@
+---
+# tasks file for apache
+#
+#
+- name: "apache installation"
+  yum:
+   name: "httpd"
+   state: "present"
+- name: "apache service activation"
+  service:
+   name: "httpd"
+   state: "started"
+   enabled: yes

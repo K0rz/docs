@@ -238,4 +238,8 @@ lancement playbook avec qu'un tag :
 `ansible-playbook -i iventaire.inv install.yml --tags restart`
 Permet d'executer qu'une tâche précise ici tagger restart (ou alors de ne pas l'exécuter avec --skip)
 
+`ansible-galaxy init NOM_ROLE`
+génère un squelette complet de rôle (fichiers, repertoires)
+un repertoire avec autant de repertoire qu'il y a de role et un playbook 
+
 
