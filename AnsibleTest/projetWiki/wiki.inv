@@ -1,5 +1,5 @@
 [apache]
-XX.XX.XX.XX ansible_user=
+139.99.202.68 ansible_user=Gomgom
 
 [mysql]
-XX.XX.XX.XX ansible_user=
+139.99.202.68 ansible_user=Gomgom
