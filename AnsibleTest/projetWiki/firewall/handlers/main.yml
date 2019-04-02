@@ -1,2 +1,4 @@
----
-# handlers file for firewall
+- name: "firewalld restart"
+  service:
+    name: "firewalld"
+    state: "restarted"
