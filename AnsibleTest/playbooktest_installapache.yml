@@ -1,6 +1,11 @@
 - name: "Apache installation"
   hosts: apache
-  tasks:
+  handlers:
+   - name: "Restart apache service"
+     service:
+      name: "httpd"
+      state: "restarted"
+ tasks:
    - name: "Apache package installation" 
      yum:
       name: "httpd"
@@ -10,10 +15,12 @@
       src: "inventory.conf.j2"
       dest: "/etc/httpd/conf.d/inventory.conf"
       owner: "apache"
-      group: "apache" 
+      group: "apache"
+     # notify apache restart handler 
+     notify: ["Restart apache service"] 
    - name: "Start apache service"
      service:
       name: "httpd"
       state: "started" 
-      enable: yes
+      enabled: yes
 
