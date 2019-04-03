@@ -1,0 +1,9 @@
+---
+# defaults file for mariadb
+#
+#
+# Default schema
+mediawiki_db_name: "mediaWiki"
+# Default user for mediawiki
+mediawiki_db_user: "mediaWiki"
+mediawiki_db_password: "mediaWiki"
