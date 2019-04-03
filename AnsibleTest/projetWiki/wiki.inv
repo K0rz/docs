@@ -1,5 +1,8 @@
 [apache]
-139.99.202.68 ansible_user=steph
+139.99.202.68 ansible_user=Gomgom
+
+[apache:vars]
+php_install=yes
 
 [mysql]
-139.99.202.68 ansible_user=steph
+139.99.202.68 ansible_user=Gomgom
