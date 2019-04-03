@@ -1,0 +1,9 @@
+- name: "uncompress mediawiki archive" 
+  unarchive: 
+  src: "{{mediawiki_archive_url}}" 
+  dest: "{{mediawiki_directory}}" 
+  owner: "apache" 
+  group: "apache" 
+  remote_src: yes 
+  # removemediawiki-1.xx.x/ from path 
+  extra_opts: --transform=s/ˆmediawiki-[0-9\.]*\//
