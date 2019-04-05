@@ -1,0 +1,42 @@
+- name: "Ouverture du port 80/tcp"
+
+  # This module allows for addition or deletion of services and ports
+  #either tcp or udp in either running or permanent firewalld rules.
+  firewalld:
+  
+    # Name of a port to add to firewalld
+    port: 80/tcp
+    
+    # Should this configuration be in the running firewalld configuration or
+    # persist across reboots.
+    permanent: yes
+    
+    # Should this port accept(enabled) or reject(disabled) connections.
+    state: enabled
+
+- name: "Ouverture du port 3306/tcp"
+
+  # This module allows for addition or deletion of services and ports
+  #either tcp or udp in either running or permanent firewalld rules.
+  firewalld:
+  
+    # Name of a port to add to firewalld
+    port: 3306/tcp
+    
+    # Should this configuration be in the running firewalld configuration or
+    # persist across reboots.
+    permanent: yes
+    
+    # Should this port accept(enabled) or reject(disabled) connections.
+    state: enabled
+
+- name: "Activation http"
+  firewalld:
+  
+    # Name of a service to add/remove to/from firewalld 
+    service: http
+    permanent: yes
+    
+    # Should this configuration be applied immediately, if set as permanent
+    immediate: yes
+    state: enabled
