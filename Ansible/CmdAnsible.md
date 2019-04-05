@@ -242,4 +242,6 @@ Permet d'executer qu'une tâche précise ici tagger restart (ou alors de ne pas 
 génère un squelette complet de rôle (fichiers, repertoires)
 un repertoire avec autant de repertoire qu'il y a de role et un playbook 
 
-
+`ansible-playbook --user root --ask-pass -b -i wiki.inv install-all.yml`
+cas d'un server réinitialisé : utilisation du root avec demande de mdp pour début 
+(pensez à installer package `sudo apt install sshpass`)
