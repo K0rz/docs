@@ -1,0 +1,36 @@
+---
+# tasks file for user_setup
+# on lance un update et un upgrade sur le système
+- name: "Update and upgrade system"
+  yum:
+    name: "*"
+    state: latest
+# On change le mot de passe root
+- name: Update Root user's Password
+  user: 
+    name: root
+    update_password: always 
+    password: "$6$o9Rh569LyzHXJ$bELHUwQKBNZIbIrQRUrctWEWc1hBTJZzZCpISC5ebbdzKOF49oLpmd6yGMonm6mdlG.QOZnFnl91Qzgj8jQr61"
+# on créé un nouvel utilisateur avec mot de passe dans le groupe wheel pour lui donner les droits sudoers
+- name: "Create user omega"
+  user:
+    name: omega
+    password: '$6$gXfZ3a548.PoH2$5j.j5vkMENY52OueNzeArBlQ9r/xGM6deNUBSkxNZFfFhAS3TMMHKf91tnDYQHjdw5IxPTXyR1BWHJkxqopfV/'
+    groups:
+    - wheel
+    #- sudo
+    state: present
+    shell: /bin/bash
+    system: no
+    createhome: yes
+    home: /home/omega
+# on édite etc/sudoers pour ne pas demander le mot de passe à l'utilisateur quand il utilise sudo
+- name: "Ajout de la clé SSH"
+  authorized_key:
+    user: "{{ user }}"
+    key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+- name: "Remove need of password to sudo"
+  lineinfile:
+    path: /etc/sudoers
+    state: present
+    line: "%wheel ALL=(ALL:ALL) NOPASSWD: ALL"
