@@ -1,4 +1,3 @@
-
 # Puppet : http://puppetlabs.com/
 
 ## Définition :
@@ -17,9 +16,11 @@ fonctionne mode client/serveur
 Puppet ne fonctionne pas en ssh mais avec CSR (certificat) : ensemble des communications effectuées sur SSL/TLS
 installation puppet master et puppet agent 
 le client demande au serveur sa configuration, qui à la réception de la requête, va compiler le catalogue
+Puppet utilise le serveur HTTP WEBRick inclu dans Ruby (simple mais problèmes de perf)
 
 ### Module : 
 un module = ensemble logique avec 3 principaux types de composants
+Les modules sont une simple arborescence de fichiers et peuvent donc être gérées dans un SCM ou encore un système de stockage partagé
 
 #### Manifests : extension .pp 
 possibilité d'import `import` 
@@ -41,6 +42,18 @@ utilisation serveur DNS (envoie identité) permet le fonctinnement SSL
     `$dns_server = ’ns2.vir-fai.net’`
     `include ’mediawiki’`
 `}`
+
+Compilation : construire le catalogue du noeud (ie arbre des dépendances avec les ressources associées)
+La catalogue généré est alors donné au client, qui va être en charge d’exécuter les ordres de configuration à l’aide de facter (Application des ordres)
+Facter est un outil intégré à Puppet pour récupérer un certain nombre de variables sur le système cible
+
+facter :
+`$ facter architecture => amd64 fqdn => node1.vir-fai.netn kernel => Linux kernelrelease => 3.10-3-amd64 lsbdistcodename => jessie lsbdistrelease => testing operatingsystem => Debian` [...]
+Le client va alors appliquer les ordres de configuration paramètrés par facter sur son système
+L’architecture de Puppet est relativement souple avec une flexibilité d’intégration intéressante pour son installation
+
+
+
     
 ### Fichiers : 
 
