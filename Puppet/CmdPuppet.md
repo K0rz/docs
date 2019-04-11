@@ -53,8 +53,72 @@ Le client va alors appliquer les ordres de configuration paramètrés par facter
 L’architecture de Puppet est relativement souple avec une flexibilité d’intégration intéressante pour son installation
 
 
+## Installation  
 
-    
-### Fichiers : 
+####CentOS:
+Puppet master 
+`rpm -ivh https://yum.puppet.com/puppet6/puppet6-release-el-7.noarch.rpm`
+`yum install puppetserver -y`
+Puppet agent 
+`rpm -ivh https://yum.puppet.com/puppet6/puppet6-release-el-7.noarch.rpm`
+`yum install puppet-agent -y`
 
-### Templates : 
+#### Debian: 
+Puppet master 
+`wget https://apt.puppet.com/puppet6/puppet6-release-el-.deb`
+
+Puppet agent 
+
+
+
+## Configuration 
+
+####CentOS:
+
+##### Puppet master
+Edition du fichier 
+`vim /etc/puppetlabs/puppet/puppet.conf`
+
+modification du fichier :
+`[master]`
+`dns_alt_names=master.puppet`
+
+`[main]`
+`certname = master.puppet`      ## machine qui valide le certificat 
+`server = master.puppet`
+`environment = production`
+`runinterval = 1h`
+
+start service + firewall (attention si bug possibile probleme de mémoire : ajouter memoire à la machine)
+`systemctl start puppetserver`
+`systemctl enable puppetserver`
+`firewall-cmd --add-port=8140/tcp --permanent`
+`firewall-cmd --reload`
+
+##### Puppet agent
+edition du fichier 
+`vim /etc/puppetlabs/puppet/puppet.conf`
+
+modification du fichier : 
+`[main]`
+`certname = one.puppet`
+`server = master.puppet`
+`environment = production`
+`runinterval = 1h`
+
+
+#### Debian:
+
+
+
+## Signature certificat 
+
+Puppet agent 
+`/opt/puppetlabs/bin/puppet agent -t`
+Puppet master 
+`/opt/puppetlabs/bin/puppetserver ca list`
+`/opt/puppetlabs/bin/puppetserver ca sign --all`
+Puppet agent 
+`/opt/puppetlabs/bin/puppet agent -t`
+
+
