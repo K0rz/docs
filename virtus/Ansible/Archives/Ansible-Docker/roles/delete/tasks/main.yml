@@ -1,0 +1,22 @@
+---
+# tasks file for delete
+- name: "Delete containers"
+  docker_container:
+   name: "{{inventory_hostname}}"
+   force_kill: yes
+   state: absent
+  delegate_to: "{{host_apache}}"
+# - name: "Delete image ubuntu"
+#   docker_image:
+#    name: "custom-ubuntu"
+#    rm: yes
+#    force: yes
+#    state: absent
+#   delegate_to: "{{host_apache}}"
+# - name: "Delete image centos"
+#   docker_image:
+#    name: "centos/systemd"
+#    rm: yes
+#    force: yes
+#    state: absent
+#   delegate_to: "{{host_apache}}"

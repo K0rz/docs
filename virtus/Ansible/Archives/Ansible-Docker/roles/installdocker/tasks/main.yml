@@ -1,0 +1,25 @@
+---
+# tasks file for installdocker
+- name: "update"
+  become: true
+  apt:
+    upgrade: "yes"
+    update_cache: "yes"
+    cache_valid_time: 86400 #Un jour
+- name: "Install docker"
+  apt:
+   name: "docker.io"
+   state: present
+- name: "Start docker"
+  service:
+   name: "docker"
+   state: started
+   enabled: yes
+- name: "install pip"
+  apt:
+   name: "python-pip"
+   state: present
+- name: "install docker-py"
+  pip:
+   name: "docker-py"
+   state: present

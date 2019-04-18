@@ -1,0 +1,15 @@
+[apachecentos]
+apachecentos1
+
+[apachecentos:vars]
+php_install=yes
+
+[apacheubuntu]
+apacheubuntu1
+
+[apacheubuntu:vars]
+docker_image="custom-ubuntu"
+
+[all:vars]
+network_name=ADJ3-NW
+ansible_connection=docker

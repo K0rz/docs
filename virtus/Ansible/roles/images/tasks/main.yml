@@ -1,0 +1,11 @@
+---
+# tasks file for images
+- name: "Copy Dockerfile"
+  copy:
+   src: "Dockerfile"
+   dest: "/tmp/Dockerfile"
+- name: "Build tomcat image"
+  docker_image:
+   name: "tomcat"
+   path: "/tmp"
+  delegate_to: "151.80.144.22"

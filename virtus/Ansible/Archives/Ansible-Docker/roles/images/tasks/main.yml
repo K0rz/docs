@@ -1,0 +1,11 @@
+---
+# tasks file for images
+- name: "Copy Dockerfile"
+  copy:
+   src: "Dockerfile"
+   dest: "/tmp/Dockerfile"
+- name: "Build custom-ubuntu image"
+  docker_image:
+   name: "custom-ubuntu"
+   path: "/tmp"
+  delegate_to: server_apache

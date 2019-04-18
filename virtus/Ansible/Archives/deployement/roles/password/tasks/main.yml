@@ -1,0 +1,7 @@
+---
+# tasks file for password
+- name: Change yolo password
+  user:
+   name: yolo
+   password: "{{ password_root }}"
+   shell: "/usr/bin/bash"

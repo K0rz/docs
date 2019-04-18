@@ -1,0 +1,6 @@
+- name: "Create docker plateform"
+  hosts: ["all"]
+  remote_user: "yolo"
+  gather_facts: no
+  roles:
+   - role: container

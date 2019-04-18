@@ -1,0 +1,3 @@
+---
+# vars file for container
+host_apache: "server_apache"

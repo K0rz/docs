@@ -1,0 +1,15 @@
+---
+# tasks file for network
+- name: "Create Docker Network"
+  docker_network:
+   name: "{{network_name}}"
+   state: present
+- name: "Create HTML local folder"
+  file:
+   path: "{{inventory_dir}}"
+   owner: "apache"
+   group: "apache"
+   mode: "0755"
+   state: "directory"
+  #delegate_to: "{{host_inventory}}"
+  run_once: yes 

@@ -1,0 +1,6 @@
+- name: "Create docker Network"
+  hosts: vps
+  gather_facts: no
+  remote_user: adj3
+  roles:
+   - role: "network"

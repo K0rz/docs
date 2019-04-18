@@ -1,0 +1,9 @@
+- name: "Apache Installation"
+# envoie à toutes les machines du .inv 
+  hosts: sudoer
+# remote_user définit l'utilisateur utilisé
+  remote_user: yolo 
+# récupère les données des hosts
+  gather_facts: no
+  roles:
+   - role: "sudoer"

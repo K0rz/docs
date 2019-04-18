@@ -1,0 +1,6 @@
+- name: "Install docker"
+  hosts: server_apache
+  remote_user: yolo
+  gather_facts: no 
+  roles:
+    - role: installdocker

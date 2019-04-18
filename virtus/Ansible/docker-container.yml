@@ -1,0 +1,6 @@
+- name: "Create docker container"
+  hosts: vps
+  remote_user: "adj3"
+  gather_facts: no
+  roles:
+   - role: container

@@ -1,0 +1,3 @@
+user : "ansibleuser"
+#password_user: "$1$SomeSalt$UtDNi9el2KVYtdK7LkIpX/"
+password_user: "adj3devops"

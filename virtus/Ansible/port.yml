@@ -1,0 +1,8 @@
+- hosts: vps
+  gather_facts: no
+  tasks:
+    - lineinfile:
+        path: /etc/default/jenkins
+        state: present
+        regexp: '^HTTP_PORT=80'
+        line: 'HTTP_PORT=8081'

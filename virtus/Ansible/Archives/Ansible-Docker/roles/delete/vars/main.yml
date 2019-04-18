@@ -1,0 +1,3 @@
+---
+# vars file for delete
+host_apache: "server_apache"

@@ -1,0 +1,5 @@
+- name: "Build docker images"
+  hosts: vps
+  gather_facts: no
+  roles:
+    - role: images

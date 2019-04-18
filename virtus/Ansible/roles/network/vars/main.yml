@@ -1,0 +1,5 @@
+---
+# vars file for network
+network_name: "ADJ3"
+inventory_dir: "/html"
+#host_inventory: "server_apache"

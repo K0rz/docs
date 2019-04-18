@@ -1,0 +1,6 @@
+- name: "Create docker Network"
+  hosts: server_apache
+  gather_facts: no
+  remote_user: yolo
+  roles:
+   - role: "network"

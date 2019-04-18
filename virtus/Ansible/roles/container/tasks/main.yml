@@ -1,0 +1,13 @@
+---
+# tasks file for container
+- name: "Create containers"
+  docker_container:
+   name: "{{inventory_hostname}}"
+   hostname: "{{inventory_hostname}}"
+   # networks:
+   #  - name: "{{network_name}}"
+   image: "tomcat"
+   volumes: ['/run','/sys/fs/cgroup']
+   privileged: yes
+   state: started
+  delegate_to: "151.80.144.22"

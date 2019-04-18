@@ -1,0 +1,15 @@
+---
+# tasks file for network
+- name: "Create Docker Network"
+  docker_network:
+   name: "{{network_name}}"
+   state: present
+- name: "Create HTML local folder"
+  file:
+   path: "/html"
+   owner: "adj3"
+   group: "adj3"
+   mode: "0755"
+   state: "directory"
+  delegate_to: "151.80.144.22"
+  run_once: yes 

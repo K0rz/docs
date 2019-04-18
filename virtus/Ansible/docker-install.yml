@@ -1,0 +1,6 @@
+- name: "Install docker"
+  hosts: "vps"
+  remote_user: "adj3"
+  gather_facts: yes 
+  roles:
+    - role: installdocker

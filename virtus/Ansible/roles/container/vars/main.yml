@@ -1,0 +1,4 @@
+---
+# vars file for container
+host_apache: "vps"
+network_name: "ADJ3"

@@ -1,0 +1,6 @@
+- name: "Start firewalld and Open port 80"
+  hosts: server_apache
+  remote_user: ansibleuser
+  gather_facts: no
+  roles: 
+    - role: "firewall"

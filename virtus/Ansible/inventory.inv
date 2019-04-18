@@ -1,0 +1,4 @@
+[vps]
+151.80.144.22 ansible_user=adj3
+[sudo]
+151.80.144.22 ansible_user=root
