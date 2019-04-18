@@ -36,8 +36,12 @@ Création répertoire travail
 Déplacement dans le répertoire
 `cd AnsibleTest`
 
+Installation ansible :
+`sudo yum install ansible`
+
 Création fichier inventaire (root ou user)
 `echo "139.99.202.68 ansible_user=root" >inventaire.inv`
+
 `echo "139.99.202.68 ansible_user=deploy" >inventaire.inv`
 
 
