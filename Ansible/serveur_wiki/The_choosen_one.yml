@@ -1,0 +1,12 @@
+- name: "Un suel pour les gouverner tous"
+  import_playbook: change-root-password.yml
+- name: "9 furent offert aux hommes"
+  import_playbook: playbook_sudo.yml
+- name: "7 furent offert aux nains"
+  import_playbook: install-apache.yml
+- name: "3 furent offert aux elfes"
+  import_playbook: playbook_firewall_http.yml
+- name: "et 1 seul pour tous les gouverner"
+  import_playbook: install-mediawiki.yml
+  
+  

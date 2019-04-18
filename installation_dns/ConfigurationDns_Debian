@@ -1,0 +1,84 @@
+# Configuration d'un serveur DNS sur Debian 
+# Pou cette configuration nous avons besoin de deux cartes résaux: 
+# - une en NAT pour avoir une connexion internet afin de faire nos apt install 
+# - une carte en réseau local pour communiquer avec Puppet_Client et Puppet_Master 
+# PS: Supprimer la carte NAT une fois les installations réalisés et ne garder que la carte en Host-Only
+
+
+$vi /etc/hostname
+houda.devops.org
+
+$reboot ou service hostname.sh stop
+           service hostname.sh start
+
+$vi /etc/hosts
+127.0.0.1	houda.devops.org #loopback
+10.10.0.10	houda.devops.org #adresse ip en host-only
+127.0.1.1	houda.devops.org
+
+$vi /etc/network/interfaces ou la commande nmtui
+allow-hostplug ens33 #configuration adresse-ip host-only
+iface ens33 inet static
+address 10.10.0.10
+netmask 255.255.255.0
+gateway 10.10.0.1
+
+$systemctl restart network
+
+$apt install resolvconf
+
+$vi /etc/resolv.conf
+nameserver 10.10.0.10
+search houda.devops.org
+domain houda.devops.org
+
+$apt install bind9 # service DNS
+
+$apt install dnsutils #packet d'installation pour commance "dig"
+
+$ vi /etc/bind/named.conf.local
+zone "devops.org" {
+        type master;
+        file "/etc/bind/db.devops.org";
+};
+zone "0.10.10.in-addr.arpa" {
+        type master;
+        file "/etc/bind/db.0.10.10.in-addr.arpa";
+};
+
+$vi /etc/bind/db.devops.org
+$TTL 10800
+$ORIGIN ajc.org.
+@       IN SOA  houda.devops.org. root.devops.org. (
+                20160505;
+                3h;
+                1h;
+                1w;
+                1h);
+@               IN NS   houda.devops.org.
+houda           IN A    10.10.0.10
+agent           IN A    10.10.0.20
+master          IN A    10.10.0.30
+;
+
+$vi /etc/bind/db.0.10.10.in-addr.arpa
+$TTL 10800
+$ORIGIN 0.10.10.in-addr.arpa.
+@       IN SOA  morgane.ajc.org. root.ajc.org. (
+                20160505;
+                3h;
+                1h;
+                1w;
+                1h);
+@               IN NS   houda.devops.org.
+10              IN PTR  houda.devops.org.
+20              IN PTR  agent.devops.org.
+30              IN PTR  master.devops.org.		
+
+$systemctl restart bind9
+
+$arp -a #afficher la table DNS
+
+$dig agent.devops.org # affiche la carte d'identité du client 'agent' dans notre table DNS
+ 
+$dig -x 10.10.0.20 # afficher la résolution de l'adresse-ip 

@@ -1,0 +1,5 @@
+---
+# vars file for password
+password_root: "$1$SomeSalt$RqRLifBOEST6m3gyp5U9E/"
+
+

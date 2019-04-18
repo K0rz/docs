@@ -1,0 +1,6 @@
+- name: "Delete docker plateform"
+  hosts: [ "all" ]
+  remote_user: "ansibleuser"
+  gather_facts: no 
+  roles:
+    - role: delete

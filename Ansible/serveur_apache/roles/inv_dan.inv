@@ -1,0 +1,4 @@
+[machines]
+rec-apache-1 ansible_user=dan
+rec-mysql-1 ansible_user=dan
+sandboxdan ansible_user=dan

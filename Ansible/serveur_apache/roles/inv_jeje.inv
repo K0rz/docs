@@ -1,0 +1,2 @@
+[machines]
+vps196235.vps.ovh.ca 	ansible_user=jeje

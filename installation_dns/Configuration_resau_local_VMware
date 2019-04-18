@@ -1,0 +1,7 @@
+#Cette configuartion se fait dans le cadre du module Puppet. Pour pouvoir communiquer, Puppet_Master, Puppet_Client et Serveur_DNS nécessitent une connexion en réseau
+#local.
+
+#Configuration sur VMware
+1- Editer un VMnet (faut être administrateur)
+2- Configurer en Host-Only (adresse ip, masque, type réseau: Host-Only, retiter DHCP)
+3- paramètrer la carte réseau des 3 machines VM sur le VMnet crée

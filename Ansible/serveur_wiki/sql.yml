@@ -1,0 +1,22 @@
+- name: "Table count"
+  hosts: mysql
+  gather_facts: no
+  tasks:
+   - name: "Create template directory"
+     file:
+      path: "/tmp/alex/"
+      owner: "apache"
+      group: "apache"
+      mode: "0755"
+      state: "directory"
+     delegate_to: "server_apache"
+   - name: "Put sql file"
+     copy:
+      src: "test.sql"
+      dest: "/tmp/alex/test.sql"
+   - name: "Launch mysql"
+     shell: mysql mediawiki < /tmp/alex/test.sql
+     register: mysql
+   - name: "Table count"
+     debug:
+      var: mysql

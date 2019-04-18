@@ -1,0 +1,4 @@
+# Liste machines
+[sudoer]
+# vps646618.ovh.net ansible_user=ansibleuser
+server_apache ansible_user=ansibleuser 

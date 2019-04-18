@@ -1,0 +1,4 @@
+---
+# vars file for container
+network_name: "YOLOOOOO"
+ansible_connection: local

@@ -1,0 +1,56 @@
+- name: "Apache Installation"
+# envoie à toutes les machines du .inv
+  hosts: all
+# remote_user définit l'utilisateur utilisé
+  remote_user: root 
+# récupère les données des hosts
+  gather_facts: yes
+  vars:
+# définition du nom de la machine apache
+   host_inventory: "serveur_apache"
+# on définit la variable du nom d'utilisateur
+   user : "ansibleuser"
+  tasks:
+   - name: "creation utilisateur"     
+     user: 
+      name: "{{ user }}"
+# password created with:  python -c 'import crypt; print crypt.crypt("This is my Password", "$1$SomeSalt$")'
+      password: "$1$SomeSalt$UtDNi9el2KVYtdK7LkIpX/"
+      shell: "/usr/bin/bash"
+   - name: "Ajout de la clé SSH"
+     authorized_key: 
+      user: "{{ user }}"
+      key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+   - name: "l'utilisateur devient un sudoer"
+     lineinfile:
+      dest: "/etc/sudoers"
+      state: "present"
+      line: "{{ user }} ALL=(ALL) NOPASSWD: ALL"
+      validate: "visudo -cf %s"
+   - name: "update et upgrade"
+     yum:
+      name: "*"
+      state: "latest"        
+   - name: "Install apache package"
+     yum:
+      name: "httpd"
+      state: "present"
+   - name: "Start apache service"
+     service: 
+      name: "httpd"
+      state: "started"
+      enabled: yes
+   - name: "Enable firewalld"
+     service:
+      name: "firewalld"
+      state: "started"
+      enabled: yes
+   - name: "Allow http"
+     firewalld:
+      service: "http"
+      permanent: yes
+      state: enabled
+   - name: "restart firewalld"
+     service:
+      name: "firewalld"
+      state: "restarted"

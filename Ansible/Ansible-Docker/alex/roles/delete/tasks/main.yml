@@ -1,0 +1,7 @@
+---
+# tasks file for delete
+- name: "Delete containers"
+  docker_container:
+   name: "{{inventory_hostname}}"
+   force_kill: yes
+   state: absent

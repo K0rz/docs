@@ -1,0 +1,34 @@
+---
+# tasks file for html
+- debug: var={{USER}}
+- name: "Create template directory"
+  file:
+   path: "{{inventory_dir}}"
+   owner: "apache"
+   group: "apache"
+   mode: "0755"
+   state: "directory"
+  delegate_to: "{{host_inventory}}"
+- name: "html file generation"
+  template:
+   src: "machine2.html.j2"
+   dest: "{{inventory_dir}}/{{inventory_hostname}}.html"
+  delegate_to: "{{host_inventory}}"
+- name: "html index file generation"
+  template:
+   src: "index.html.j2"
+   dest: "{{host_dir}}/index.html"
+  delegate_to: "{{host_inventory}}"
+- name: "Find html user files"
+  find:
+   paths: "/"
+   patterns: '*.html'
+  register: "user_list"
+  delegate_to: "{{host_inventory}}"
+- debug: var="user_list"
+
+- name: "html host file generation"
+  template:
+   src: "user.html.j2"
+   dest: "{{host_dir}}/{{USER}}.html"
+  delegate_to: "{{host_inventory}}"

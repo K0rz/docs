@@ -1,0 +1,7 @@
+---
+# tasks file for images
+
+- name: "Build custom-ubuntu image"
+  docker_image:
+   name: "solitaita"
+   path: "solita/ubuntu-systemd"

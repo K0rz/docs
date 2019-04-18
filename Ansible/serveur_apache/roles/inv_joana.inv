@@ -1,0 +1,5 @@
+[machines]
+server_apache ansible_user=ansibleuser
+vps_jo ansible_user=joana
+my-sql-jo ansible_user=joana
+my-apache-jo ansible_user=joana

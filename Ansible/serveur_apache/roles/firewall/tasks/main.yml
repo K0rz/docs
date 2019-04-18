@@ -1,0 +1,17 @@
+- name: "Check firewall state"
+  command: "systemctl is-active firewalld"
+  register: state_firewalld
+  ignore_errors: yes
+#- debug: var=state_firewalld.stdout_lines[0]
+- name: "Start firewalld"
+  service:
+   name: "firewalld"
+   state: "restarted"
+   enabled: yes
+  when: state_firewalld.stdout_lines[0] != "active"
+- name: "Try to restart httpd if not started"
+  firewalld: 
+   service: "http"
+   state: "enabled" 
+   permanent: yes 
+   immediate: yes

@@ -1,0 +1,8 @@
+- name: "Generate html file for each host"
+  hosts: all
+  gather_facts: yes
+  remote_user: ansibleuser
+  vars: 
+   USER: "jerome"
+  roles: 
+   - role: "html"

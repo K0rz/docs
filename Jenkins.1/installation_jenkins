@@ -1,0 +1,12 @@
+#Installation Jenkins sur docker
+
+#Sur notre vps
+docker pull jenkins/jenkins
+
+sudo docker run -d -v jenkins_home:/var/jenkins_home -p 8080:8080 --name=jenkins jenkins/jenkins
+docker start jenkins
+docker exec -it jenkins /bin/bash
+51.75.253.153:8080
+
+cat /var/jenkins_home/secrets/initialAdminPassword
+#récupération du mot de passe 

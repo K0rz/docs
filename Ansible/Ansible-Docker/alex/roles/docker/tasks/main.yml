@@ -1,0 +1,7 @@
+---
+# tasks file for docker
+- name: "Create Docker Network"
+  docker_network:
+   name: "{{network_name}}"
+   state: present
+   

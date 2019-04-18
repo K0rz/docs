@@ -1,0 +1,6 @@
+[apache]
+monvps ansible_user=dan
+[apache:vars]
+php_install=yes
+[mysql]
+monvps ansible_user=dan

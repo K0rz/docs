@@ -1,0 +1,5 @@
+- name: "Delete docker plateform"
+  hosts: [ "all" ]
+  gather_facts: no 
+  roles:
+    - role: delete

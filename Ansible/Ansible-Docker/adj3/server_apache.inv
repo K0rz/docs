@@ -1,0 +1,2 @@
+[server_apache]
+server_apache ansible_user=ansibleuser

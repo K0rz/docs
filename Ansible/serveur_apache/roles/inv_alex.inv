@@ -1,0 +1,5 @@
+[machines]
+rec-apache-1 ansible_user=alex
+rec-mysql-1 ansible_user=alex
+vps646618.ovh.net ansible_user=ansibleuser
+vps196232.vps.ovh.ca ansible_user=ansibleuser

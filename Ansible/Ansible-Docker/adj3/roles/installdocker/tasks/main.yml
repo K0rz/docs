@@ -1,0 +1,23 @@
+---
+# tasks file for installdocker
+- name: "update"
+  yum:
+   name: "*"
+   state: latest
+- name: "Install docker"
+  yum:
+   name: "docker"
+   state: present
+- name: "Start docker"
+  service:
+   name: "docker"
+   state: started
+   enabled: yes
+- name: "install pip"
+  yum:
+   name: "python-pip"
+   state: present
+- name: "install docker-py"
+  pip:
+   name: "docker-py"
+   state: present

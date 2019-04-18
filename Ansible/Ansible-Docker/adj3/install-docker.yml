@@ -1,0 +1,6 @@
+- name: "Install docker"
+  hosts: server_apache
+  remote_user: ansibleuser
+  gather_facts: no 
+  roles:
+    - role: installdocker

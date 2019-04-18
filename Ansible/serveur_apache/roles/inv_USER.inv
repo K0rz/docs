@@ -1,0 +1,5 @@
+
+[vps646618.ovh.net]
+vps646618.ovh.net ansible_user=ansibleuser
+[vps635270.ovh.net]
+vps635270.ovh.net ansible_user=root

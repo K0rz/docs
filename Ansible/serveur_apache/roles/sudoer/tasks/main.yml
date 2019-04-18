@@ -1,0 +1,17 @@
+# Creation of a sudoer (superuser) on the server 
+- name: "creation utilisateur"     
+  user: 
+    name: "{{ user }}"
+  # Password crypted
+    password: "$1$SomeSalt$UtDNi9el2KVYtdK7LkIpX/"
+    shell: "/usr/bin/bash"
+- name: "Ajout de la clé SSH"
+  authorized_key: 
+    user: "{{ user }}"
+    key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+- name: "l'utilisateur devient un sudoer"
+  lineinfile:
+    dest: "/etc/sudoers"
+    state: "present"
+    line: "{{ user }} ALL=(ALL) NOPASSWD: ALL"
+    validate: "visudo -cf %s"

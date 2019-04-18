@@ -1,0 +1,7 @@
+- name: "Generate html file for each host"
+  hosts: all
+  gather_facts: yes
+  vars: 
+   USER: "alex"
+  roles: 
+   - role: "html"

@@ -1,0 +1,5 @@
+- name: "Build docker images"
+  hosts: localhost
+  gather_facts: no
+  roles:
+    - role: images

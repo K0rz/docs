@@ -1,0 +1,5 @@
+---
+# vars file for html
+host_inventory: "vps646618.ovh.net"
+inventory_dir: "/var/www/html/{{USER}}"
+host_dir: "/var/www/html"

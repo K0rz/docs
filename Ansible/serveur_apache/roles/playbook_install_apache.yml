@@ -1,0 +1,6 @@
+- name: "Apache Installation"
+  hosts: server_apache
+  remote_user: ansibleuser
+  gather_facts: yes
+  roles: 
+   - role: "apache"

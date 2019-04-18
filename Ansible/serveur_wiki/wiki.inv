@@ -1,0 +1,6 @@
+[apache]
+server_apache ansible_user=ansibleuser
+[apache:vars]
+php_install=yes
+[mysql]
+server_apache ansible_user=ansibleuser
