@@ -1,0 +1,5 @@
+# My gitlab username, token, repository.
+username: "robot"
+token: "P6jhBeaLNE2aisKs-b1d"
+directory: /home/pi/.robot
+repository: 139.99.202.52/devops/embedded-system.git

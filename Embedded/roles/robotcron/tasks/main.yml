@@ -1,0 +1,25 @@
+# Remove previous cron job for robot program.
+- name : Remove previous robot cron jobs - xx:00
+  cron :
+    name  : Check update every 1 minute after xx:00 seconds.
+    state : absent
+
+- name : Remove previous robot cron jobs - xx:30 
+  cron :
+    name  : Check update every 1 minute after xx:30 seconds.
+    state : absent
+
+# Check update every minute.
+- name: "Check update every 1 minute after xx:00"
+  cron:
+    name: Check update every 1 minute after xx:00 seconds.
+    job: "/home/pi/.robot/robot/Robot.sh auto"
+    state: present
+    user: "pi"
+
+- name: "Check update every 1 minute after xx:30"
+  cron:
+    name: Check update every 1 minute after xx:30 seconds.
+    job: "sleep 30 && /home/pi/.robot/robot/Robot.sh auto"
+    state: present
+    user: "pi"
