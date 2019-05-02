@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: git
+spec:
+ replicas: 3
+ selector:
+  matchLabels:
+   app: git
+ template:
+  metadata:
+   labels:
+    app: git
+  spec:
+   containers:
+   - name: git
+     image: nginx
+     ports:
+     - containerPort: 80
+

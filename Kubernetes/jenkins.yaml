@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: jenkins
+spec:
+ replicas: 3
+ selector:
+  matchLabels:
+   app: jen
+ template:
+  metadata:
+   labels:
+    app: jen
+  spec:
+   containers:
+   - name: jenkins
+     image: nginx
+     ports:
+     - containerPort: 80
+

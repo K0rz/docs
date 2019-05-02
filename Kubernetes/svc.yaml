@@ -1,0 +1,12 @@
+apiVersion: v1  
+kind: Service  
+metadata: 
+ name: svc-production
+spec: 
+ selector:  
+  app: prod 
+ type: NodePort  
+ ports: 
+ - port: 8080
+   targetPort: 8080
+   nodePort: 32500

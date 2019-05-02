@@ -1,0 +1,19 @@
+apiVersion: apps/v1  
+kind: Deployment  
+metadata: 
+ name: production
+spec: 
+ replicas: 3
+ selector:
+  matchLabels:
+   app: prod
+ template:
+  metadata:
+   labels:
+    app: prod
+  spec:
+   containers: 
+   - name: production
+     image: steph1er/simple-app
+     ports:
+     - containerPort: 8080
